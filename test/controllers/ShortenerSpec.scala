@@ -9,11 +9,9 @@ import org.scalatest.{Matchers, BeforeAndAfterEach, FlatSpec}
 import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.play.OneAppPerSuite
 
-import play.api.mvc.Result
-import play.api.http.Status
-import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.api.libs.json.Json
+import play.api.test.FakeRequest
 
 
 class ShortenerSpec extends FlatSpec
