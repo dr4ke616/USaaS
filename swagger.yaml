@@ -1,0 +1,74 @@
+swagger: '2.0'
+info:
+  title: Url Shortener As A Service
+  description: App to provide shortned urls
+  version: 1.0.0
+schemes:
+  - https
+  - http
+basePath: /api/v1
+produces:
+  - application/json
+
+paths:
+  /short-url/hash:
+    get:
+      description: |
+        Get original URL using hash.
+      tags:
+        - Short Url
+      responses:
+        '200':
+          description: An object containing the full redirect path and the original url
+          schema:
+            $ref: '#/definitions/ShortUrl'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+    put:
+      description: |
+        Get original URL using hash.
+      tags:
+        - Short Url
+      responses:
+        '201':
+          description: Create a new Url redirect
+          schema:
+            $ref: '#/definitions/ShortUrl'
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+  /hash:
+    get:
+      description: |
+        The redirect endpoint.
+      tags:
+        - Redirect
+      responses:
+        '303':
+          description: See Other - Header will contain location to proxied url
+        default:
+          description: Unexpected error
+          schema:
+            $ref: '#/definitions/Error'
+
+definitions:
+  ShortUrl:
+    type: object
+    properties:
+      original_url:
+        type: string
+        description: Original url
+      short_url:
+        type: string
+        description: Redirect location to the short url
+  Error:
+    type: object
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
