@@ -2,6 +2,8 @@
 
 Url Shortener as a Service. Simple Scala Play app to handle redirections using short urls
 
+[![Build Status](https://travis-ci.org/dr4ke616/USaaS.svg?branch=master)](https://travis-ci.org/dr4ke616/USaaS)
+
 
 ## Database
 The database is configured to use Postgres, but it will support most relational databases. Assuming you are using Postgres:
