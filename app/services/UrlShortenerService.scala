@@ -11,8 +11,7 @@ import scalaz._
 @ImplementedBy(classOf[slickbacked.UrlShortenerServiceImpl])
 trait UrlShortenerService {
 
-  type EitherIssueShortUrl = Future[IssueMessage \/ Option[ShortUrl]]
-
-  def get(hash: String): EitherIssueShortUrl
-  def put(shortUrl: ShortUrl): EitherIssueShortUrl
+  def get(hash: String): Future[IssueMessage \/ Option[ShortUrl]]
+  def put(shortUrl: ShortUrl): Future[IssueMessage \/ Long]
+  def update(id: Long, shortUrl: ShortUrl): Future[IssueMessage \/ Unit]
 }

@@ -10,10 +10,10 @@ import com.google.inject.{Inject, Singleton}
 @Singleton
 class DatabaseProvider @Inject() (configuration: Configuration) {
 
-  import services.config._
-
   private val databaseConfig = DatabaseConfig.forConfig[JdbcProfile] (
-    configuration.getMandatoryString("database.config.name"),
+    configuration
+      .getString("database.config.name")
+      .getOrElse(sys.error(s"Missing 'database.config.name' Configuration")),
     configuration.underlying
   )
 

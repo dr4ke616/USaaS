@@ -7,7 +7,6 @@ import scala.concurrent.Await
 import scala.concurrent.duration.DurationInt
 import scala.concurrent.ExecutionContext.Implicits.global
 
-
 trait ProvidedDatabase {
 
   def app: Application
