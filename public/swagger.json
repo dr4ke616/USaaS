@@ -6,7 +6,6 @@
         "version": "1.0.0"
     },
     "schemes": [
-        "https",
         "http"
     ],
     "basePath": "/",
@@ -15,28 +14,8 @@
     ],
     "paths": {
         "/short-url/hash": {
-            "get": {
-                "description": "Get original URL using hash.\n",
-                "tags": [
-                    "Short Url"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "An object containing the full redirect path and the original url",
-                        "schema": {
-                            "$ref": "#/definitions/ShortUrl"
-                        }
-                    },
-                    "default": {
-                        "description": "Unexpected error",
-                        "schema": {
-                            "$ref": "#/definitions/Issue"
-                        }
-                    }
-                }
-            },
             "put": {
-                "description": "Get original URL using hash.\n",
+                "description": "Create a short URL entry.\n",
                 "tags": [
                     "Short Url"
                 ],
@@ -56,9 +35,50 @@
                 }
             }
         },
-        "/hash": {
+        "/short-url/hash/{id}": {
             "get": {
-                "description": "The redirect endpoint.\n",
+                "description": "Get original URL using hash.",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "description": "The raw ID of the redirect",
+                        "in": "path",
+                        "type": "integer",
+                        "format": "int32",
+                        "required": true
+                    }
+                ],
+                "tags": [
+                    "Short Url"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An object containing the full redirect path and the original url",
+                        "schema": {
+                            "$ref": "#/definitions/ShortUrl"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Issue"
+                        }
+                    }
+                }
+            }
+        },
+        "/{hash}": {
+            "get": {
+                "description": "The redirect endpoint.",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "description": "The hash code to be used for the bases for the redirect",
+                        "in": "path",
+                        "type": "string",
+                        "required": true
+                    }
+                ],
                 "tags": [
                     "Redirect"
                 ],
@@ -80,13 +100,18 @@
         "ShortUrl": {
             "type": "object",
             "properties": {
+                "id": {
+                    "type": "integer",
+                    "format": "int32",
+                    "description": "The ID"
+                },
                 "original_url": {
                     "type": "string",
                     "description": "Original url"
                 },
-                "short_url": {
+                "hash": {
                     "type": "string",
-                    "description": "Redirect location to the short url"
+                    "description": "The hash for the URL"
                 }
             }
         },

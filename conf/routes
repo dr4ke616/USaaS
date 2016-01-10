@@ -3,7 +3,7 @@
 # ~~~~
 
 GET     /assets/*file                   controllers.Assets.at(path="/public", file)
-GET     /docs                           controllers.Default.redirect(to="/assets/lib/swagger-ui/index.html?/url=/assets/swagger.json")
+GET     /docs/ui                        controllers.Default.redirect(to="/assets/lib/swagger-ui/index.html?/url=/assets/swagger.json")
 
 PUT     /short-url/hash                 controllers.Shortener.put()
 GET     /short-url/hash/:id             controllers.Shortener.get(id: Long)
