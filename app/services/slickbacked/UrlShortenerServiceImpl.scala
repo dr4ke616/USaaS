@@ -22,12 +22,12 @@ class UrlShortenerServiceImpl @Inject() (dbProvider: DatabaseProvider) extends U
 
   import dm.driver.api._
 
-  def get(hash: String): Future[IssueMessage \/ Option[ShortUrl]] = {
+  def get(id: Long): Future[IssueMessage \/ Option[ShortUrl]] = {
     db.run {
       {
-        dm.urlHashMap.filter(_.hash === hash).result.headOption
+        dm.urlHashMap.filter(_.id === id).result.headOption
       }.transactionally
-    }.map(_.map(result => ShortUrl(result.originalUrl, result.hash)).right).recover {
+    }.map(_.map(result => ShortUrl(Option(result.id), result.originalUrl, result.hash)).right).recover {
       case err =>
         Logger.warn(s"There was a internal database error when reading: $err")
         "There was a internal database error when reading".id[Issue].left

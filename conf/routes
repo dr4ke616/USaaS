@@ -2,11 +2,10 @@
 # This file defines all application routes (Higher priority routes first)
 # ~~~~
 
-GET     /assets/*file           controllers.Assets.at(path="/public", file)
-GET     /docs                   controllers.Default.redirect(to="/assets/lib/swagger-ui/index.html?/url=/assets/swagger.json")
+GET     /assets/*file                   controllers.Assets.at(path="/public", file)
+GET     /docs                           controllers.Default.redirect(to="/assets/lib/swagger-ui/index.html?/url=/assets/swagger.json")
 
-GET     /short-url/hash         controllers.Shortener.get(hash: String)
-PUT     /short-url/hash         controllers.Shortener.put(hash: String)
-
-GET     /hash                   controllers.Redirect.get(hash: String)
+PUT     /short-url/hash                 controllers.Shortener.put()
+GET     /short-url/hash/:id             controllers.Shortener.get(id: Long)
+GET     /:hash                          controllers.Redirect.get(hash: String)
 

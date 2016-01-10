@@ -28,24 +28,24 @@ class UrlShortenerServiceSpec extends FlatSpec
 
   "UrlShortenerService" should "create a new entry and read it back" in {
 
-    val shortUrl = ShortUrl(original_url = "http://some/url", Option(hash))
-    val \/-(id) = urlShortenerService.put(shortUrl).futureValue
-    id should === (1.toLong)
+    val shortUrl = ShortUrl(original_url = "http://some/url", hash = Option(hash))
+    val \/-(returnedId) = urlShortenerService.put(shortUrl).futureValue
+    returnedId should === (1.toLong)
 
-    val \/-(retrieved) = urlShortenerService.get(hash).futureValue
-    retrieved should === (Option(shortUrl))
+    val \/-(retrieved) = urlShortenerService.get(returnedId).futureValue
+    retrieved should === (Option(shortUrl.copy(id = Option(returnedId))))
   }
 
   it should "create then be able to update an entry" in {
 
     // Create
-    val shortUrl = ShortUrl(original_url = "http://some/url", None)
-    val \/-(id) = urlShortenerService.put(shortUrl).futureValue
-    id should === (1.toLong)
+    val shortUrl = ShortUrl(original_url = "http://some/url", hash = None)
+    val \/-(returnedId) = urlShortenerService.put(shortUrl).futureValue
+    returnedId should === (1.toLong)
 
     // Update
-    urlShortenerService.update(id, shortUrl.copy(hash = Option(hash))).futureValue
-    val \/-(updated) = urlShortenerService.get(hash).futureValue
-    updated should === (Option(shortUrl.copy(hash = Option(hash))))
+    urlShortenerService.update(returnedId, shortUrl.copy(hash = Option(hash))).futureValue
+    val \/-(updated) = urlShortenerService.get(returnedId).futureValue
+    updated should === (Option(shortUrl.copy(id = Option(returnedId), hash = Option(hash))))
   }
 }

@@ -12,7 +12,7 @@ class ApplicationSpec extends PlaySpec with OneServerPerSuite with BeforeAndAfte
   "USaaS Application" must {
 
     "Get 404 on a non existing endpoint" in new WithApplication(FakeApplication()) {
-      val response = route(FakeRequest(GET, "/boum")).get
+      val response = route(FakeRequest(GET, "/doesnt/exist/boum")).get
       status(response) must === (NOT_FOUND)
     }
   }
